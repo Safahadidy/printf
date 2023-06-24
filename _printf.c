@@ -1,4 +1,10 @@
 #include "main."h
+#include <stdio.h>
+#include <string.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdarg.h>
+#include <limits.h>
 /**
  * scan_for_escape - scan_for_scape
  * @escape: symbol escape
