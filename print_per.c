@@ -1,10 +1,12 @@
 #include "main.h"
 /**
  * print_per - per
+ * Return: 1
 */
-int print_per(char c)
+void print_per(void)
 {
+	char c;
+
 	c = '%';
 	write(1, &c, 1);
-    return (1);
 }
