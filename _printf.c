@@ -14,38 +14,19 @@ if (format == NULL)
 va_start(ptr, format);
 for (i = 0, count = 0; format[i]; i++)
 {
-	if (format[i] != '%')
-	{
-		print_unformatted(format[i]);
+if (format[i] != '%')
+{
+	print_unformatted(format[i]);
 		count++;
-	}
+}
+else
+{
+	specifier = is_switch(ptr, format[i+1]);
+	if (specifier =  -1)
+		return (-1);
 	else
-	{
-		switch (format[i + 1])
-		{
-			case 's':
-				format++;
-				_string_format_handler_(ptr);
-				break;
-			case 'c':
-				print_char(va_arg(ptr, int));
-				i++;
-				break;
-			case '%':
-				print_per();
-				i++;
-				break;
-			case 'd':
-				format++;
-				print_int(ptr);
-				break;
-			case 'i':
-				format++;
-				print_int(ptr);
-				break;
-			default:
-				print_unformatted(format[i]);
-		}}}
+		count++;
+}
 va_end(ptr);
 return (count);
 }
