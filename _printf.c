@@ -7,26 +7,31 @@
 
 int _printf(const char *format, ...)
 {
-int i, count;
-va_list ptr;
-if (format == NULL)
-	return (-1);
-va_start(ptr, format);
-for (i = 0, count = 0; format[i]; i++)
-{
-if (format[i] != '%')
-{
-	print_unformatted(format[i]);
-		count++;
-}
-else
-{
-	specifier = is_switch(ptr, format[i+1]);
-	if (specifier =  -1)
-		return (-1);
-	else
-		count++;
-}
-va_end(ptr);
-return (count);
+	int i, count;
+
+	va_list ptr;
+
+	va_start(ptr, format);
+
+	for (i = 0, count = 0; format[i] != '\0'; i++)
+	{
+		if (format[i] == '%' && is_specifier_or_not(format[i + 1]))
+		{
+			determine_function(format[i + 1], ptr);
+			if (format[i + 1] == 'c' || format[i + 1] == '%')
+				i++;
+			else
+				format++;
+			if (scan_for_escape(format[i]))
+				print_escape(format[i]);
+		}
+		else if (format[i] != '%' || (format[i] == '%' && format[i + 1] == '%') ||
+		(format[i] == '%' && !is_specifier_or_not(format[i + 1])))
+		{
+			print_unformatted(format[i]);
+			count++;
+		}
+	}
+	va_end(ptr);
+	return (count);
 }

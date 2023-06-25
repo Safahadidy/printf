@@ -45,4 +45,6 @@ void print_escape(char escape);
 int (*get_specifier_string_int(char s))(va_list arg);
 int (*get_specifier_char_per(char s))(char c);
 int determine_function(char s, va_list arg);
+int is_specifier_or_not(char s);
+
 #endif
