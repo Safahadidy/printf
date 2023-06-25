@@ -10,30 +10,31 @@
 #include <math.h>
 
 /**
- * struct specifier: struct
- * 
- * @spec_l: letter
- * @f: the function associated
+ * struct specifier_sd - struct
+ * @spec: letter
+ * @function: the function associated
 */
 typedef struct specifier_sd
 {
-    char spec;
-    int (*function)(va_list arg);
-}sd_format;
-
+	char spec;
+	int (*function)(va_list arg);
+} sd_format;
 int print_int(va_list arg);
 int _string_format_handler_(va_list arg);
 
-
+/**
+ * struct specif_cp - struct
+ *@spec: letter
+ *@function: the function associated
+*/
 typedef struct specif_cp
 {
-    char spec;
-    int (*function)(char c);
-}cp;
+	char spec;
+	int (*function)(char c);
+} cp;
 
 int scan_for_escape(char escape);
 int print_char(char c);
-int print_per(char c);
 
 
 int _printf(const char *format, ...);

@@ -17,6 +17,8 @@ int _printf(const char *format, ...)
 	{
 		if (format[i] == '%' && is_specifier_or_not(format[i + 1]))
 		{
+			if (format[i + 1] == '%')
+				continue;
 			determine_function(format[i + 1], ptr);
 			if (format[i + 1] == 'c' || format[i + 1] == '%')
 				i++;
@@ -25,7 +27,9 @@ int _printf(const char *format, ...)
 			if (scan_for_escape(format[i]))
 				print_escape(format[i]);
 		}
-		else if (format[i] != '%' || (format[i] == '%' && format[i + 1] == '%') ||
+		else if (format[i] != '%' ||
+		(format[i] == '%' && is_specifier_or_not(format[i + 1]) &&
+		!va_arg(ptr, int)) ||
 		(format[i] == '%' && !is_specifier_or_not(format[i + 1])))
 		{
 			print_unformatted(format[i]);
