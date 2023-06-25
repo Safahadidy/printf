@@ -8,6 +8,7 @@ int calculate_number_of_digits(int num)
 {
 	int number_of_digits;
 
+	num = abs(num);
 	number_of_digits = 0;
 	if (num / 10 == 0)
 	{
@@ -59,18 +60,13 @@ void print_digits(int num)
 */
 void print_negative(int num)
 {
-	if (num == INT_MIN)
-	{
-		write(1, "-2147483648", 11);
-		return;
-	}
 	num = -num;
 	write(1, "-", 1);
 	print_digits(num);
 }
 
 /**
- * print_int - prints integer
+ * print_int - plmlk
  * @arg: argumrnt pointer
  * Return: number of digits
 */
@@ -81,7 +77,6 @@ int print_int(va_list arg)
 	char c;
 
 	num = va_arg(arg, int);
-
 	if (calculate_number_of_digits(num) == 1)
 	{
 		if (num < 0)
