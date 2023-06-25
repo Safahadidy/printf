@@ -1,47 +1,106 @@
 #include "main.h"
 /**
+ * calculate_number_of_digits - prints integer
+ * @num: number
+ * Return: number of digits
+*/
+int calculate_number_of_digits(int num)
+{
+	int number_of_digits;
+
+	number_of_digits = 0;
+	if (num / 10 == 0)
+	{
+		return (1);
+	}
+	while (num != 0)
+	{
+		num /= 10;
+		number_of_digits++;
+	}
+	return (number_of_digits);
+}
+/**
+ * print_digits - prints the digits of a number
+ * @num: number
+ * Return: nothing
+ */
+void print_digits(int num)
+{
+	int n_digits;
+	int is_negative;
+
+	n_digits = calculate_number_of_digits(num);
+	is_negative = 0;
+	if (num < 0)
+	{
+		is_negative = 1;
+		num = -num;
+	}
+
+	if (is_negative)
+		write(1, "-", 1);
+
+	while (n_digits > 0)
+	{
+		int divisor = power(10, n_digits - 1);
+		int digit = (num / divisor) % 10;
+		char digit_character = '0' + digit;
+
+		write(1, &digit_character, 1);
+		n_digits--;
+	}
+}
+
+/**
+ * print_negative - prints integer
+ * @num: number
+ * Return: nothing
+*/
+void print_negative(int num)
+{
+	if (num == INT_MIN)
+	{
+		write(1, "-2147483648", 11);
+		return;
+	}
+	num = -num;
+	write(1, "-", 1);
+	print_digits(num);
+}
+
+/**
  * print_int - prints integer
  * @arg: argumrnt pointer
  * Return: number of digits
 */
 int print_int(va_list arg)
 {
-	int num, num_copy, num_copy2, n_digits, m, k;
+	int num;
 
-	int n_digits_cp;
-	char c, zero;
+	char c;
 
 	num = va_arg(arg, int);
-	num_copy = num;
-	num_copy2 = num;
-	n_digits = 0;
-	while (num != 0)
+
+	if (calculate_number_of_digits(num) == 1)
 	{
-		num /= 10;
-		n_digits++;
-	}
-	n_digits_cp = n_digits;
-	k = num_copy % (int)power(10, n_digits - 1);
-	if (k == 0)
-	{
-		m = num_copy / (int)power(10, n_digits - 1);
-		c = '0' + m;
-		write(1, &c, 1);
-		while (n_digits_cp != 1)
+		if (num < 0)
 		{
-			zero = '0';
-			write(1, &zero, 1);
-			n_digits_cp--;
+			print_negative(num);
+			return (1);
 		}
-		return (n_digits);
-	}
-	while (num_copy2 >= 0)
-	{
-		m = num_copy / (int)power(10, n_digits - 1);
-		num_copy2 -= m * (int)power(10, n_digits - 1);
-		n_digits_cp--;
-		c = '0' + m;
+		c = '0' + num;
 		write(1, &c, 1);
+		return (1);
 	}
-	return (n_digits);
+	else
+	{
+		if (num < -1)
+		{
+			print_negative(num);
+			return (calculate_number_of_digits(num));
+		}
+		print_digits(num);
+		return (calculate_number_of_digits(num));
+	}
 }
