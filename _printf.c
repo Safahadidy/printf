@@ -7,32 +7,34 @@
 
 int _printf(const char *format, ...)
 {
-	int i;
+	int i, total_length;
 
 	va_list ptr;
 
 	va_start(ptr, format);
 
-	for (i = 0; format[i] != '\0'; i++)
+	total_length = 0;
+	i = 0;
+	while (format[i] != '\0')
 	{
-		if (format[i] == '%' && is_specifier_or_not(format[i + 1]))
+		if (format[i] == '%' && format[i + 1] != '\0' &&
+		is_specifier_or_not(format[i + 1]))
 		{
-			if (format[i + 1] == '%')
-				continue;
-			determine_function(format[i + 1], ptr);
-			if (format[i + 1] == 'c' || format[i + 1] == '%')
-				i++;
-			else
-				format++;
-			if (scan_for_escape(format[i]))
-				print_escape(format[i]);
+			i++;
+			total_length += determine_function(format[i], ptr);
+			i++;
 		}
-		else if (format[i] != '%' ||
-		(format[i] == '%' && is_specifier_or_not(format[i + 1]) &&
-		!va_arg(ptr, int)) ||
-		(format[i] == '%' && !is_specifier_or_not(format[i + 1])))
-			print_unformatted(format[i]);
+		else if (format[i] != '%')
+		{
+			total_length += print_character(format[i]);
+			i++;
+		}
+		else if (format[i] == '%' && !is_specifier_or_not(format[i + 1]))
+		{
+			total_length += print_character(format[i]);
+			i++;
+		}
 	}
 	va_end(ptr);
-	return (calculate_returned_value(format, ptr));
+	return (total_length);
 }
