@@ -3,7 +3,7 @@
  * determine_function - determine the most suitable function
  * @format: format letter
  * @arg: ptr
- * Return: function returned value
+ * Return: function value
 */
 int determine_function(char format, va_list arg)
 {
