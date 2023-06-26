@@ -13,9 +13,7 @@ int _printf(const char *format, ...)
 
 	va_start(ptr, format);
 
-	total_length = 0;
-	i = 0;
-	while (format[i] != '\0')
+	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%' && format[i + 1] != '\0' &&
 		is_specifier_or_not(format[i + 1]))
