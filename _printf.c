@@ -12,8 +12,9 @@ int _printf(const char *format, ...)
 	va_list ptr;
 
 	va_start(ptr, format);
-
-	for (i = 0; format[i] != '\0'; i++)
+	if ((format == NULL) && (format[i] != NULL))
+	return (-1);
+	for (i = 0; (format[i] != '\0'); i++)
 	{
 		if (format[i] == '%' && is_specifier_or_not(format[i + 1]))
 		{
