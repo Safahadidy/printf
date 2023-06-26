@@ -4,7 +4,7 @@
  * @s: format
  * Return: returned value
 */
-int (*get_specifier_char_per(char s))(char c)
+void (*get_specifier_char_per(char s))(char c)
 {
 	int i;
 
@@ -20,5 +20,5 @@ int (*get_specifier_char_per(char s))(char c)
 			return (specifiers[i].function);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }

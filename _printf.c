@@ -7,13 +7,13 @@
 
 int _printf(const char *format, ...)
 {
-	int i, count;
+	int i;
 
 	va_list ptr;
 
 	va_start(ptr, format);
 
-	for (i = 0, count = 0; format[i] != '\0'; i++)
+	for (i = 0; format[i] != '\0'; i++)
 	{
 		if (format[i] == '%' && is_specifier_or_not(format[i + 1]))
 		{
@@ -31,11 +31,8 @@ int _printf(const char *format, ...)
 		(format[i] == '%' && is_specifier_or_not(format[i + 1]) &&
 		!va_arg(ptr, int)) ||
 		(format[i] == '%' && !is_specifier_or_not(format[i + 1])))
-		{
 			print_unformatted(format[i]);
-			count++;
-		}
 	}
 	va_end(ptr);
-	return (count);
+	return (calculate_returned_value(format, ptr));
 }

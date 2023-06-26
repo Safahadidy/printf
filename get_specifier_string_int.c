@@ -4,7 +4,7 @@
  * @s: format
  * Return: value
 */
-int (*get_specifier_string_int(char s))(va_list arg)
+void (*get_specifier_string_int(char s))(va_list arg)
 {
 	int i;
 
@@ -22,5 +22,5 @@ int (*get_specifier_string_int(char s))(va_list arg)
 			return (specifiers[i].function);
 		i++;
 	}
-	return (NULL);
+	return (0);
 }

@@ -17,10 +17,10 @@
 typedef struct specifier_sd
 {
 	char spec;
-	int (*function)(va_list arg);
+	void (*function)(va_list arg);
 } sd_format;
-int print_int(va_list arg);
-int _string_format_handler_(va_list arg);
+void print_int(va_list arg);
+void _string_format_handler_(va_list arg);
 
 /**
  * struct specif_cp - struct
@@ -30,11 +30,11 @@ int _string_format_handler_(va_list arg);
 typedef struct specif_cp
 {
 	char spec;
-	int (*function)(char c);
+	void (*function)(char c);
 } cp;
 
 int scan_for_escape(char escape);
-int print_char(char c);
+void print_char(char c);
 
 
 int _printf(const char *format, ...);
@@ -43,9 +43,12 @@ void print_unformatted(char c);
 
 void print_escape(char escape);
 
-int (*get_specifier_string_int(char s))(va_list arg);
-int (*get_specifier_char_per(char s))(char c);
-int determine_function(char s, va_list arg);
+void (*get_specifier_string_int(char s))(va_list arg);
+void (*get_specifier_char_per(char s))(char c);
+void determine_function(char s, va_list arg);
 int is_specifier_or_not(char s);
 
+int calculate_returned_value(const char *format, va_list ptr);
+int char_or_not(char c);
+int calculate_number_of_digits(int num);
 #endif

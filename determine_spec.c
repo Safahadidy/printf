@@ -5,11 +5,11 @@
  * @arg: ptr
  * Return: value
 */
-int determine_function(char format, va_list arg)
+void determine_function(char format, va_list arg)
 {
-	int (*operation)(va_list ptr);
+	void (*operation)(va_list ptr);
 
-	int (*op_c)(char c);
+	void (*op_c)(char c);
 
 	if (format == 'c' || format == '%')
 	{
@@ -21,5 +21,4 @@ int determine_function(char format, va_list arg)
 		operation = get_specifier_string_int(format);
 		operation(arg);
 	}
-	return (0);
 }

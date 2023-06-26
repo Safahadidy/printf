@@ -1,27 +1,5 @@
 #include "main.h"
 /**
- * calculate_number_of_digits - prints integer
- * @num: number
- * Return: number of digits
-*/
-int calculate_number_of_digits(int num)
-{
-	int number_of_digits;
-
-	num = abs(num);
-	number_of_digits = 0;
-	if (num / 10 == 0)
-	{
-		return (1);
-	}
-	while (num != 0)
-	{
-		num /= 10;
-		number_of_digits++;
-	}
-	return (number_of_digits);
-}
-/**
  * print_digits - prints the digits of a number
  * @num: number
  * Return: nothing
@@ -70,7 +48,7 @@ void print_negative(int num)
  * @arg: argumrnt pointer
  * Return: number of digits
 */
-int print_int(va_list arg)
+void print_int(va_list arg)
 {
 	int num;
 
@@ -82,20 +60,16 @@ int print_int(va_list arg)
 		if (num < 0)
 		{
 			print_negative(num);
-			return (1);
 		}
 		c = '0' + num;
 		write(1, &c, 1);
-		return (1);
 	}
 	else
 	{
 		if (num < -1)
 		{
 			print_negative(num);
-			return (calculate_number_of_digits(num));
 		}
 		print_digits(num);
-		return (calculate_number_of_digits(num));
 	}
 }
